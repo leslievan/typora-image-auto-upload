@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/home/leslie/miniconda3/envs/typora-img/bin/python
 
 import oss2
 import configparser
 import argparse
 import time
+import os
 from os.path import join
 from pathlib import Path
 from qcloud_cos import CosConfig
@@ -16,7 +17,8 @@ if __name__ == "__main__":
                         help='path of file to upload')
     args = parser.parse_args()
 
-    config_path = Path('./config.ini').resolve()
+    config_path = join(os.path.split(
+        os.path.realpath(__file__))[0], 'config.ini')
 
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -58,4 +60,3 @@ if __name__ == "__main__":
                 Key=obj,
             )
             print(join(domain, obj))
-
